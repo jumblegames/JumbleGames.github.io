@@ -4,32 +4,589 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Jumble Games | Independent Game Studio</title>
+
+  <meta name="description" content="Jumble Games is an independent game development studio based in Pakistan, creating original games and interactive experiences.">
+
+  <meta name="theme-color" content="#141510">
+
+  <meta property="og:title" content="Jumble Games">
+  <meta property="og:description" content="Independent thinking. Creative ideas. Interactive experiences.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jumblegames.github.io/">
+
   <style>
-    body {
-      margin: 0;
-      background: #101014;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: grid;
-      place-items: center;
-      min-height: 100vh;
-      text-align: center;
+    :root {
+      --bg: #141510;
+      --surface: #1d1e18;
+      --lime: #d9ed57;
+      --cream: #f2f0e7;
+      --muted: #a6a79b;
+      --line: #34362d;
     }
-    main { padding: 30px; }
-    h1 { font-size: 52px; letter-spacing: 5px; }
-    p { color: #aaa; line-height: 1.7; }
-    a { color: #b8a1ff; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 88%);
+      margin: auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(20,21,16,.95);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--lime);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--lime);
+    }
+
+    .hero {
+      min-height: 620px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border: 1px solid rgba(217,237,87,.15);
+      border-radius: 50%;
+      right: -130px;
+      top: 90px;
+      box-shadow: 0 0 0 50px rgba(217,237,87,.025),
+                  0 0 0 100px rgba(217,237,87,.02);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      padding: 100px 0;
+    }
+
+    .eyebrow {
+      color: var(--lime);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 3px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 92px);
+      line-height: .98;
+      letter-spacing: -5px;
+      font-weight: 900;
+      max-width: 850px;
+    }
+
+    h1 span {
+      color: var(--lime);
+    }
+
+    .hero-text {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 470px;
+      margin: 28px 0 35px;
+    }
+
+    .button {
+      display: inline-block;
+      background: var(--lime);
+      color: var(--bg);
+      padding: 14px 23px;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      background: #ecf99b;
+    }
+
+    section {
+      padding: 105px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      color: var(--lime);
+      font-size: 11px;
+      letter-spacing: 3px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 55px);
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 16px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-note {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 35px;
+    }
+
+    .about-note strong {
+      color: var(--lime);
+      font-size: 35px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .about-note p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 45px;
+    }
+
+    .service {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 30px;
+      min-height: 190px;
+      transition: .2s;
+    }
+
+    .service:hover {
+      border-color: var(--lime);
+      transform: translateY(-4px);
+    }
+
+    .service-number {
+      color: var(--lime);
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .service h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .games-section {
+      background: #191a14;
+    }
+
+    .game-card {
+      border: 1px solid var(--line);
+      padding: 45px;
+      margin-top: 40px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(217,237,87,.09), transparent 40%),
+        var(--bg);
+    }
+
+    .game-card .status {
+      display: inline-block;
+      color: var(--lime);
+      font-size: 10px;
+      letter-spacing: 2px;
+      border: 1px solid rgba(217,237,87,.4);
+      padding: 7px 12px;
+      margin-bottom: 22px;
+    }
+
+    .game-card h3 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .game-card p {
+      color: var(--muted);
+      max-width: 570px;
+      font-size: 14px;
+    }
+
+    .contact {
+      text-align: center;
+      padding: 120px 0;
+    }
+
+    .contact h2 {
+      max-width: 700px;
+      margin: 0 auto 22px;
+    }
+
+    .email {
+      display: inline-block;
+      color: var(--lime);
+      font-size: clamp(15px, 3vw, 22px);
+      margin-top: 30px;
+      border-bottom: 1px solid var(--lime);
+      padding-bottom: 5px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 30px 0;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    footer p, footer a {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer a:hover {
+      color: var(--lime);
+    }
+
+    @media(max-width: 750px) {
+      .hero {
+        min-height: 530px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 13px;
+        font-size: 11px;
+      }
+
+      .game-card {
+        padding: 28px;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+    }
+
+    @media(max-width: 400px) {
+      .logo {
+        font-size: 18px;
+      }
+
+      .nav-links {
+        gap: 9px;
+        font-size: 10px;
+      }
+    }
   </style>
 </head>
+
 <body>
-  <main>
-    <h1>JUMBLE GAMES</h1>
-    <p>Independent Game Studio</p>
-    <h2>We make games worth playing.</h2>
-    <p>Building playful worlds, unique experiences<br>
-       and games for everyone.</p>
-    <p>Contact: jumblegames.dev@gmail.com</p>
-  </main>
+
+<header>
+  <div class="container">
+    <nav>
+      <a class="logo" href="#">JUMBLE GAMES<span>.</span></a>
+
+      <div class="nav-links">
+        <a href="#about">ABOUT</a>
+        <a href="#work">OUR WORK</a>
+        <a href="#contact">CONTACT</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="container">
+    <section class="hero" style="border:0;">
+      <div class="hero-content">
+        <div class="eyebrow">Independent Game Studio · Pakistan</div>
+
+        <h1>
+          WE MAKE GAMES.<br>
+          WE MAKE <span>WORLDS.</span>
+        </h1>
+
+        <p class="hero-text">
+          Independent thinking. Creative ideas.
+          Interactive experiences. We build original
+          games designed to bring people into new worlds
+          and keep them coming back.
+        </p>
+
+        <a class="button" href="#work">
+          EXPLORE OUR WORK ↗
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <div>
+          <div class="section-label">01 / WHO WE ARE</div>
+
+          <h2>BUILT AROUND THE LOVE OF PLAY.</h2>
+
+          <p class="section-text">
+            Jumble Games is an independent game development
+            studio based in Pakistan, operated by Ahad Mahmood.
+
+            We focus on creating original interactive
+            experiences, combining creative game design,
+            thoughtful development and distinctive visual
+            direction.
+
+            Our goal is simple: make games that are enjoyable,
+            accessible and memorable.
+          </p>
+        </div>
+
+        <div class="about-note">
+          <strong>J/G.</strong>
+          <h3>Independent by nature.</h3>
+          <p>
+            A creative game development venture focused on
+            original ideas, engaging gameplay and building
+            experiences for players across platforms.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="container">
+
+      <div class="section-label">02 / WHAT WE DO</div>
+
+      <h2>FROM IDEAS TO INTERACTIVE EXPERIENCES.</h2>
+
+      <p class="section-text">
+        We explore different aspects of game creation,
+        bringing design, technology and creativity together.
+      </p>
+
+      <div class="services">
+
+        <div class="service">
+          <div class="service-number">01</div>
+          <h3>Game Development</h3>
+          <p>
+            Building interactive games and experiences
+            across digital platforms.
+          </p>
+        </div>
+
+        <div class="service">
+          <div class="service-number">02</div>
+          <h3>Game Design</h3>
+          <p>
+            Developing gameplay concepts, mechanics,
+            progression systems and player experiences.
+          </p>
+        </div>
+
+        <div class="service">
+          <div class="service-number">03</div>
+          <h3>Art & Visual Design</h3>
+          <p>
+            Creating distinctive visual worlds,
+            environments and game assets.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="games-section">
+    <div class="container">
+
+      <div class="section-label">03 / OUR PROJECTS</div>
+
+      <h2>NEW IDEAS ARE TAKING SHAPE.</h2>
+
+      <p class="section-text">
+        We are working on original game concepts and
+        interactive experiences. More project details
+        will be shared as they are ready.
+      </p>
+
+      <div class="game-card">
+        <div class="status">IN DEVELOPMENT</div>
+
+        <h3>Something is brewing.</h3>
+
+        <p>
+          We are currently exploring and developing
+          original gaming experiences. Follow Jumble Games
+          for future announcements and releases.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+      <div class="section-label">04 / OUR APPROACH</div>
+
+      <h2>SMALL IDEAS CAN CREATE BIG EXPERIENCES.</h2>
+
+      <p class="section-text">
+        We believe great games start with a simple idea
+        and grow through experimentation, iteration and
+        attention to detail.
+
+        Our approach brings gameplay, visual identity
+        and technology together to create cohesive
+        interactive experiences.
+      </p>
+
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+
+      <div class="section-label">05 / GET IN TOUCH</div>
+
+      <h2>HAVE AN IDEA? LET'S TALK.</h2>
+
+      <p class="section-text" style="margin:auto;">
+        For business enquiries, collaborations,
+        partnerships and other opportunities,
+        get in touch with us.
+      </p>
+
+      <a class="email"
+         href="mailto:thejumblegames@gmail.com">
+        jumblegames.dev@gmail.com ↗
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-content">
+
+      <a class="logo" href="#">
+        JUMBLE GAMES<span>.</span>
+      </a>
+
+      <p>© <span id="year"></span> Jumble Games. All rights reserved.</p>
+
+      <a href="privacy.html">Privacy Policy</a>
+
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
+
 </body>
 </html>
